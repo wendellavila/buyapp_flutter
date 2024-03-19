@@ -7,6 +7,6 @@ The app consists of an endless randomly generated list of products that can be a
 ### Product list
 ![Landing page screenshot](https://raw.githubusercontent.com/wendellavila/buyapp_flutter/main/screenshots/products.png)
 ### Cart
-![Home page screenshot](https://raw.githubusercontent.com/wendellavila/buyapp_flutter/main/screenshots/buyapp-cart.png)
+![Home page screenshot](https://raw.githubusercontent.com/wendellavila/buyapp_flutter/main/screenshots/cart.png)
 ### Profile
-![Report page screenshot](https://raw.githubusercontent.com/wendellavila/buyapp_flutter/main/screenshots/buyapp-profile.png)
+![Report page screenshot](https://raw.githubusercontent.com/wendellavila/buyapp_flutter/main/screenshots/profile.png)
