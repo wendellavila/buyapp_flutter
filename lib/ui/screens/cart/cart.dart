@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 
-import 'package:buyapp/shopping.dart';
-import 'package:buyapp/item.dart';
-import 'package:buyapp/itemInfo.dart';
+import 'package:buyapp/ui/screens/shopping/shopping.dart';
+import 'package:buyapp/model/item.dart';
 
-class Cart extends StatefulWidget {
+import 'cart_item.dart';
+
+class CartScreen extends StatefulWidget {
   final double _balance;
   final Set<Item> _saved;
-  Cart(this._balance, this._saved);
+  CartScreen(this._balance, this._saved);
 
   @override
-  _CartState createState() => _CartState(_balance, _saved);
+  _CartScreenState createState() => _CartScreenState(_balance, _saved);
 }
 
-class _CartState extends State<Cart> {
+class _CartScreenState extends State<CartScreen> {
   double _balance;
   double _totalPrice = 0.0;
   Set<Item> _saved = <Item>{};
-  _CartState(this._balance, this._saved);
+  _CartScreenState(this._balance, this._saved);
 
   Future<void> _clearCart() async {
     bool? dialogResponse = await showDialog<bool>(
@@ -140,7 +141,7 @@ class _CartState extends State<Cart> {
     }
   }
 
-  Future<void> _addToCart(alreadySaved, pair) async {
+  Future<void> _addToCart({required bool alreadySaved, required Item item}) async {
     String actionTitle;
     String actionText;
     if (alreadySaved) {
@@ -175,36 +176,12 @@ class _CartState extends State<Cart> {
     if (dialogResponse == true) {
       setState(() {
         if (alreadySaved) {
-          _saved.remove(pair);
+          _saved.remove(item);
         } else {
-          _saved.add(pair);
+          _saved.add(item);
         }
       });
     }
-  }
-
-  Widget _buildItem(Item item) {
-    final alreadySaved = _saved.contains(item);
-    return ListTile(
-      leading: Image.asset(
-        './assets/' + ItemInfo.images[item.productId],
-        width: 50,
-      ),
-      title: Text(
-        item.brand + " " + ItemInfo.productType[item.productId],
-        style: TextStyle(fontSize: 18.0),
-      ),
-      subtitle: Text("R\$" + item.price.toStringAsFixed(2)),
-      trailing: TextButton(
-        child: Icon(
-          alreadySaved ? Icons.add_shopping_cart : Icons.add_shopping_cart,
-          color: alreadySaved ? Colors.green : Colors.black,
-        ),
-        onPressed: () {
-          _addToCart(alreadySaved, item);
-        },
-      ),
-    );
   }
 
   @override
@@ -212,7 +189,7 @@ class _CartState extends State<Cart> {
     _totalPrice = 0.0;
     final tiles = <Widget>{};
     _saved.forEach((item) {
-      tiles.add(_buildItem(item));
+      tiles.add(CartItem(item: item, saved: _saved, addToCart: _addToCart));
       _totalPrice = _totalPrice + item.price;
     });
 
@@ -229,7 +206,7 @@ class _CartState extends State<Cart> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ShoppingItems()),
+              MaterialPageRoute(builder: (context) => ShoppingScreen()),
             );
           },
         ),

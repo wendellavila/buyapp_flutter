@@ -1,11 +1,11 @@
 name: buyapp
-description: A new Flutter project.
+description: Simple e-Commerce app layout
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.3.1"
+  sdk: '>=3.3.1'
 
 dependencies:
   flutter:
@@ -22,4 +22,4 @@ flutter:
   uses-material-design: true
 
   assets:
-  - assets/
+    - assets/
